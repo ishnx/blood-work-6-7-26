@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Story Your Blood Is Telling — Ishan Kulkarni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================= RESET & BASE ============================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --bg:#fbfbfd;
+  --bg-alt:#f3f3f5;
+  --paper:#ffffff;
+  --ink:#151517;
+  --ink-soft:#5c5c62;
+  --ink-faint:#8a8a90;
+  --line:#e3e3e6;
+  --line-soft:#ececef;
+  --accent:#2159c9;
+  --accent-soft:#e8eefc;
+  --accent-deep:#0f3a8f;
+  --gold:#a6741a;
+  --gold-soft:#faf1de;
+  --good:#1a7a52;
+  --good-soft:#e4f5ec;
+  --good-line:#bfe6d4;
+  --watch:#a6650a;
+  --watch-soft:#fbf0dc;
+  --watch-line:#f1d8a6;
+  --bad:#b93f34;
+  --bad-soft:#fbeae7;
+  --bad-line:#f2c7bf;
+  --serif:'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --radius-lg:28px;
+  --radius-md:18px;
+  --radius-sm:12px;
+  --shadow-lg:0 30px 80px -30px rgba(20,20,30,.25);
+  --shadow-md:0 16px 40px -18px rgba(20,20,30,.18);
+  --shadow-sm:0 6px 18px -10px rgba(20,20,30,.15);
+  --maxw:1160px;
+}
+body{
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.6;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+@media (max-width:720px){.wrap{padding:0 20px;}}
+
+h1,h2,h3,h4{font-family:var(--serif);font-weight:500;letter-spacing:-0.01em;color:var(--ink);}
+.serif{font-family:var(--serif);}
+.italic{font-style:italic;}
+
+/* ============================= PROGRESS BAR ============================= */
+#progressBar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),#6fa0ff);width:0%;z-index:9999;transition:width .1s linear;}
+
+/* ============================= SIDE NAV ============================= */
+.side-nav{
+  position:fixed;right:26px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:14px;z-index:900;
+}
+.side-nav button{
+  width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink-faint);
+  background:transparent;cursor:pointer;padding:0;position:relative;transition:all .3s ease;
+}
+.side-nav button.active{background:var(--accent);border-color:var(--accent);transform:scale(1.35);}
+.side-nav button::after{
+  content:attr(data-label);
+  position:absolute;right:22px;top:50%;transform:translateY(-50%);
+  white-space:nowrap;font-size:11.5px;font-weight:600;letter-spacing:.02em;
+  background:var(--ink);color:#fff;padding:5px 10px;border-radius:8px;
+  opacity:0;pointer-events:none;transition:opacity .2s ease;
+}
+.side-nav button:hover::after{opacity:1;}
+@media (max-width:900px){.side-nav{display:none;}}
+
+/* ============================= NAV FILTER BAR ============================= */
+.filter-bar{
+  position:sticky;top:0;z-index:500;
+  background:rgba(251,251,253,.86);backdrop-filter:blur(14px) saturate(160%);
+  border-bottom:1px solid var(--line);
+  padding:14px 0;
+}
+.filter-bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.filter-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);}
+.filter-pills{display:flex;gap:8px;flex-wrap:wrap;}
+.filter-pill{
+  border:1px solid var(--line);background:#fff;color:var(--ink-soft);
+  font-family:var(--sans);font-weight:600;font-size:13.5px;padding:8px 16px;border-radius:999px;
+  cursor:pointer;transition:all .25s ease;
+}
+.filter-pill:hover{border-color:var(--accent);color:var(--accent);}
+.filter-pill.active{background:var(--ink);border-color:var(--ink);color:#fff;}
+.filter-pill .count{opacity:.6;font-weight:500;margin-left:3px;}
+
+/* ============================= HERO ============================= */
+.hero{
+  min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  position:relative;padding:140px 0 80px;overflow:hidden;
+  background:
+    radial-gradient(ellipse 900px 500px at 15% -10%, #eef3ff 0%, transparent 60%),
+    radial-gradient(ellipse 800px 600px at 110% 20%, #fdf3e6 0%, transparent 55%),
+    var(--bg);
+}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.14em;color:var(--accent);margin-bottom:26px;
+}
+.hero-kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hero h1{
+  font-size:clamp(2.4rem,6.4vw,5.2rem);line-height:1.02;font-weight:500;
+  max-width:1000px;letter-spacing:-0.02em;
+}
+.hero h1 em{font-style:italic;color:var(--accent);}
+.hero-sub{
+  margin-top:28px;font-size:clamp(1.05rem,1.6vw,1.3rem);color:var(--ink-soft);
+  max-width:640px;font-weight:400;
+}
+.hero-meta{
+  margin-top:44px;display:flex;gap:36px;flex-wrap:wrap;
+}
+.hero-meta div{border-left:2px solid var(--line);padding-left:14px;}
+.hero-meta .label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-faint);font-weight:700;}
+.hero-meta .val{font-family:var(--serif);font-size:1.15rem;margin-top:3px;}
+.hero-score-wrap{
+  position:absolute;right:6%;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.score-ring{width:190px;height:190px;position:relative;}
+.score-ring svg{transform:rotate(-90deg);width:100%;height:100%;}
+.score-ring circle{fill:none;stroke-width:10;}
+.score-ring .track{stroke:var(--line);}
+.score-ring .fill{stroke:var(--accent);stroke-linecap:round;stroke-dasharray:502;stroke-dashoffset:502;transition:stroke-dashoffset 1.8s cubic-bezier(.16,1,.3,1);}
+.score-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.score-num .n{font-family:var(--serif);font-size:2.6rem;font-weight:600;}
+.score-num .d{font-size:11px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.08em;margin-top:-4px;}
+.score-caption{font-size:12.5px;color:var(--ink-faint);text-align:center;max-width:200px;}
+@media (max-width:980px){.hero-score-wrap{position:static;transform:none;margin-top:52px;align-items:flex-start;}}
+.scroll-cue{
+  position:absolute;bottom:36px;left:32px;display:flex;align-items:center;gap:10px;
+  font-size:12px;color:var(--ink-faint);letter-spacing:.05em;text-transform:uppercase;font-weight:600;
+}
+.scroll-cue .arrow{width:1px;height:34px;background:linear-gradient(var(--ink-faint),transparent);position:relative;animation:drop 1.8s infinite;}
+@keyframes drop{0%{opacity:0;transform:translateY(-6px);}50%{opacity:1;}100%{opacity:0;transform:translateY(10px);}}
+
+/* ============================= CHAPTER SHELL ============================= */
+.chapter{padding:120px 0;position:relative;}
+.chapter.tight{padding:90px 0;}
+.chapter-kicker{
+  display:flex;align-items:center;gap:14px;margin-bottom:22px;
+}
+.chapter-kicker .num{
+  font-family:var(--serif);font-size:15px;font-weight:600;color:var(--accent);
+  border:1px solid var(--accent-soft);background:var(--accent-soft);border-radius:999px;
+  padding:6px 14px;
+}
+.chapter-kicker .label{font-size:12.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-faint);font-weight:700;}
+.chapter h2{font-size:clamp(1.9rem,4vw,3.1rem);max-width:820px;}
+.chapter .deck{font-size:1.15rem;color:var(--ink-soft);max-width:680px;margin-top:20px;}
+.chapter-divider{height:1px;background:linear-gradient(90deg,var(--line),transparent);margin-top:70px;}
+
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:.08s;}
+.reveal-delay-2{transition-delay:.16s;}
+.reveal-delay-3{transition-delay:.24s;}
+
+/* ============================= STORY THREADS (Chapter 1) ============================= */
+.thread-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:56px;}
+@media (max-width:940px){.thread-grid{grid-template-columns:1fr;}}
+.thread-card{
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-lg);
+  padding:34px 30px;box-shadow:var(--shadow-sm);transition:transform .4s ease,box-shadow .4s ease;
+  position:relative;overflow:hidden;
+}
+.thread-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);}
+.thread-card .icon{font-size:28px;margin-bottom:18px;display:block;}
+.thread-card .num{
+  position:absolute;top:-10px;right:8px;font-family:var(--serif);font-size:6rem;font-weight:600;
+  color:var(--bg-alt);z-index:0;
+}
+.thread-card h3{font-size:1.32rem;position:relative;z-index:1;margin-bottom:12px;}
+.thread-card p{position:relative;z-index:1;color:var(--ink-soft);font-size:15px;}
+.thread-card .tag{
+  display:inline-block;margin-top:16px;font-size:11.5px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.06em;padding:5px 12px;border-radius:999px;position:relative;z-index:1;
+}
+.tag-lifestyle{background:var(--watch-soft);color:var(--watch);}
+.tag-diet{background:var(--bad-soft);color:var(--bad);}
+.tag-genetic{background:var(--accent-soft);color:var(--accent-deep);}
+
+.narrative-block{max-width:760px;margin-top:52px;}
+.narrative-block p{font-size:1.08rem;color:var(--ink-soft);margin-bottom:22px;}
+.narrative-block p strong{color:var(--ink);font-weight:600;}
+.pull-quote{
+  font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,2.4vw,1.8rem);
+  line-height:1.4;color:var(--ink);border-left:3px solid var(--accent);padding:6px 0 6px 28px;
+  margin:40px 0;max-width:720px;
+}
+
+/* ============================= FACT BOX ============================= */
+.fact-box{
+  background:linear-gradient(135deg,#fff9ef,#fdf4e3);border:1px solid var(--watch-line);
+  border-radius:var(--radius-md);padding:22px 26px;display:flex;gap:16px;align-items:flex-start;
+  margin:28px 0;max-width:720px;
+}
+.fact-box .emoji{font-size:22px;line-height:1;margin-top:2px;}
+.fact-box .body b{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--gold);margin-bottom:5px;font-weight:800;}
+.fact-box .body span{font-size:14.5px;color:#5a4523;line-height:1.55;}
+
+/* ============================= VITALS / SCORE CHAPTER ============================= */
+.vitals-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:50px;}
+@media (max-width:900px){.vitals-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:520px){.vitals-grid{grid-template-columns:1fr;}}
+.vital-tile{
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-md);
+  padding:24px;text-align:left;
+}
+.vital-tile .lbl{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);font-weight:700;}
+.vital-tile .v{font-family:var(--serif);font-size:1.9rem;margin-top:8px;}
+.vital-tile .sub{font-size:12.5px;color:var(--ink-faint);margin-top:4px;}
+
+.summary-split{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center;margin-top:60px;}
+@media (max-width:900px){.summary-split{grid-template-columns:1fr;gap:36px;}}
+.concern-list{display:flex;flex-direction:column;gap:12px;}
+.concern-row{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;
+}
+.concern-row .name{font-weight:600;font-size:14.5px;}
+.concern-row .chapref{font-size:12px;color:var(--ink-faint);}
+.status-pill{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:5px 11px;border-radius:999px;white-space:nowrap;}
+.status-optimal{background:var(--good-soft);color:var(--good);border:1px solid var(--good-line);}
+.status-watch{background:var(--watch-soft);color:var(--watch);border:1px solid var(--watch-line);}
+.status-concern{background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad-line);}
+
+/* ============================= METRIC GRID / CARDS ============================= */
+.metric-intro{max-width:700px;color:var(--ink-soft);font-size:1.05rem;margin-top:18px;}
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:48px;}
+@media (max-width:860px){.metric-grid{grid-template-columns:1fr;}}
+.mcard{
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-lg);
+  padding:28px 28px 26px;box-shadow:var(--shadow-sm);transition:box-shadow .3s ease,transform .3s ease;
+}
+.mcard:hover{box-shadow:var(--shadow-md);}
+.mcard.full-span{grid-column:1/-1;}
+.mcard-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:6px;}
+.mcard-head h4{font-size:1.28rem;font-weight:600;}
+.mcard-kicker{font-size:12px;color:var(--ink-faint);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-top:2px;}
+
+.sub-metric{margin-top:20px;}
+.sub-metric .row1{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+.sub-metric .label{font-size:13px;font-weight:700;color:var(--ink-soft);}
+.sub-metric .value{font-family:var(--serif);font-size:1.5rem;font-weight:600;}
+.sub-metric .value .unit{font-family:var(--sans);font-size:.62em;font-weight:600;color:var(--ink-faint);margin-left:4px;}
+.sub-metric .ref{font-size:11.5px;color:var(--ink-faint);}
+
+.range-bar{position:relative;height:10px;border-radius:999px;background:var(--bg-alt);overflow:visible;margin-bottom:4px;}
+.range-bar .zone{position:absolute;top:0;bottom:0;border-radius:999px;}
+.range-bar .zone-normal{background:#dcefe4;}
+.range-bar .marker{
+  position:absolute;top:50%;width:16px;height:16px;border-radius:50%;
+  transform:translate(-50%,-50%) scale(0);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25);
+  transition:transform .8s cubic-bezier(.34,1.56,.64,1) .3s, left 1.2s cubic-bezier(.16,1,.3,1);
+}
+.range-bar.animated .marker{transform:translate(-50%,-50%) scale(1);}
+.marker-optimal{background:var(--good);}
+.marker-watch{background:var(--watch);}
+.marker-concern{background:var(--bad);}
+
+.mcard-body{margin-top:22px;}
+.mcard-body p{color:var(--ink-soft);font-size:14.5px;margin-bottom:14px;}
+.mcard-body p:last-child{margin-bottom:0;}
+.decode-box{
+  background:var(--bg-alt);border-radius:14px;padding:16px 18px;margin-top:16px;
+  border-left:3px solid var(--accent);
+}
+.decode-box b{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-deep);display:block;margin-bottom:6px;font-weight:800;}
+.decode-box p{color:var(--ink);font-size:14.5px;margin:0;}
+.fix-box{
+  background:var(--good-soft);border-radius:14px;padding:16px 18px;margin-top:12px;border-left:3px solid var(--good);
+}
+.fix-box b{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--good);display:block;margin-bottom:6px;font-weight:800;}
+.fix-box p{color:#134d34;font-size:14.5px;margin:0;}
+
+.accordion-toggle{
+  margin-top:18px;display:inline-flex;align-items:center;gap:8px;background:none;border:none;
+  color:var(--accent);font-family:var(--sans);font-weight:700;font-size:13.5px;cursor:pointer;padding:0;
+}
+.accordion-toggle .plus{
+  width:20px;height:20px;border-radius:50%;border:1.5px solid var(--accent);display:flex;align-items:center;justify-content:center;
+  transition:transform .3s ease;font-size:14px;line-height:1;
+}
+.mcard.open .accordion-toggle .plus{transform:rotate(135deg);}
+.accordion-content{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1);}
+.mcard.open .accordion-content{max-height:1400px;}
+.accordion-inner{padding-top:18px;}
+.accordion-inner h5{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);font-weight:800;margin:16px 0 6px;}
+.accordion-inner h5:first-child{margin-top:0;}
+
+.mini-fact{font-size:13px;color:var(--ink-faint);margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);}
+.mini-fact b{color:var(--gold);}
+
+/* compact table */
+.data-table{width:100%;border-collapse:collapse;margin-top:20px;font-size:14px;}
+.data-table th{
+  text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);
+  padding:10px 14px;border-bottom:1px solid var(--line);font-weight:700;
+}
+.data-table td{padding:12px 14px;border-bottom:1px solid var(--line-soft);}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table .num{font-family:var(--serif);font-weight:600;}
+.table-wrap{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-lg);padding:8px 14px;box-shadow:var(--shadow-sm);margin-top:26px;overflow-x:auto;}
+.table-wrap h4{padding:16px 14px 4px;font-size:1.1rem;}
+.table-wrap .note{padding:0 14px 14px;font-size:12.5px;color:var(--ink-faint);}
+
+/* ============================= PARETO CHAPTER ============================= */
+.pareto-list{display:flex;flex-direction:column;gap:20px;margin-top:52px;}
+.pareto-item{
+  display:grid;grid-template-columns:90px 1fr;gap:26px;background:var(--paper);
+  border:1px solid var(--line);border-radius:var(--radius-lg);padding:30px;box-shadow:var(--shadow-sm);
+  position:relative;
+}
+.pareto-item.top{border:1.5px solid var(--accent);background:linear-gradient(180deg,#fff,var(--accent-soft) 220%);}
+@media (max-width:700px){.pareto-item{grid-template-columns:1fr;gap:14px;}}
+.pareto-rank{font-family:var(--serif);font-size:3rem;font-weight:600;color:var(--accent-soft);-webkit-text-stroke:1.5px var(--accent);}
+.pareto-item.top .pareto-rank{color:var(--accent);-webkit-text-stroke:0;}
+.pareto-badge{
+  position:absolute;top:-12px;right:26px;background:var(--accent);color:#fff;font-size:11px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.07em;padding:6px 14px;border-radius:999px;box-shadow:0 6px 16px -6px rgba(33,89,201,.6);
+}
+.pareto-item h4{font-size:1.35rem;margin-bottom:8px;}
+.pareto-item .effort{font-size:12.5px;color:var(--ink-faint);font-weight:600;margin-bottom:12px;}
+.pareto-item p{color:var(--ink-soft);font-size:14.75px;margin-bottom:10px;}
+.pareto-item .why-works{
+  margin-top:14px;background:var(--bg-alt);border-radius:12px;padding:14px 16px;font-size:13.75px;color:var(--ink-soft);
+}
+.pareto-item .why-works b{color:var(--ink);}
+.impact-bar{display:flex;gap:5px;margin-top:14px;}
+.impact-bar span{height:6px;flex:1;background:var(--line);border-radius:99px;}
+.impact-bar span.filled{background:var(--accent);}
+
+/* ============================= ROADMAP ============================= */
+.roadmap-tabs{display:flex;gap:10px;margin-top:44px;flex-wrap:wrap;}
+.rtab{padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:700;font-size:13.5px;cursor:pointer;color:var(--ink-soft);}
+.rtab.active{background:var(--ink);border-color:var(--ink);color:#fff;}
+.rpanel{display:none;margin-top:32px;}
+.rpanel.active{display:block;}
+.habit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+@media (max-width:820px){.habit-grid{grid-template-columns:1fr;}}
+.habit-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-md);padding:22px;}
+.habit-card .time{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:800;}
+.habit-card ul{margin-top:12px;padding-left:18px;}
+.habit-card li{font-size:14px;color:var(--ink-soft);margin-bottom:8px;}
+
+.timeline{position:relative;margin-top:10px;padding-left:34px;}
+.timeline::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line);}
+.tl-item{position:relative;padding-bottom:34px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item::before{content:'';position:absolute;left:-34px;top:4px;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--accent);}
+.tl-item .m{font-family:var(--serif);font-weight:600;font-size:1.15rem;}
+.tl-item .tests{margin-top:8px;display:flex;flex-wrap:wrap;gap:8px;}
+.tl-item .tests span{background:var(--bg-alt);font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;color:var(--ink-soft);}
+
+/* ============================= EPILOGUE ============================= */
+.epilogue{
+  background:linear-gradient(160deg,#101114,#1c1e24);color:#f2f2f4;border-radius:40px;
+  margin:0 auto;max-width:calc(var(--maxw) + 64px);padding:110px 60px;text-align:center;position:relative;overflow:hidden;
+}
+@media (max-width:720px){.epilogue{padding:80px 26px;border-radius:24px;}}
+.epilogue::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 20%, rgba(111,160,255,.18), transparent 55%),radial-gradient(circle at 80% 80%, rgba(255,196,110,.13), transparent 55%);
+}
+.epilogue-content{position:relative;z-index:1;max-width:740px;margin:0 auto;}
+.epilogue .kicker{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#9fb4e8;font-weight:700;margin-bottom:26px;}
+.epilogue h2{color:#fff;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.15;}
+.epilogue p{color:#c7c8ce;font-size:1.1rem;margin-top:26px;line-height:1.75;}
+.epilogue .sig{margin-top:52px;font-family:var(--serif);font-style:italic;font-size:1.2rem;color:#fff;}
+.epilogue .sig span{display:block;font-family:var(--sans);font-style:normal;font-size:12px;color:#9fa0a8;margin-top:6px;letter-spacing:.05em;text-transform:uppercase;}
+
+/* ============================= FOOTER ============================= */
+footer{padding:60px 0 100px;text-align:center;}
+footer p{font-size:12.5px;color:var(--ink-faint);max-width:640px;margin:0 auto 8px;line-height:1.7;}
+
+/* ============================= COUNTER ANIMATION HELPERS ============================= */
+.count-up{font-variant-numeric:tabular-nums;}
+
+::selection{background:var(--accent);color:#fff;}
+</style>
+</head>
+<body>
+
+<div id="progressBar"></div>
+
+<nav class="side-nav" id="sideNav"></nav>
+
+<main>
+
+<!-- ============================= HERO ============================= -->
+<section class="hero" id="hero">
+  <div class="wrap">
+    <div class="hero-kicker"><span class="dot"></span> A Biological Chronicle · Compiled 06 July 2026</div>
+    <h1>The story your <em>blood</em><br>has been trying to tell you.</h1>
+    <p class="hero-sub">Forty-five biological signals, one 27-year-old body, and three threads worth pulling. This isn't a lab report — it's the biography of your last three months, written in cells, enzymes, and minerals.</p>
+    <div class="hero-meta">
+      <div><div class="label">Subject</div><div class="val">Ishan V. Kulkarni</div></div>
+      <div><div class="label">Age / Sex</div><div class="val">27 · Male</div></div>
+      <div><div class="label">Sample Drawn</div><div class="val">06 Jul 2026, 6:52 AM</div></div>
+      <div><div class="label">Panels Read</div><div class="val">45 markers</div></div>
+    </div>
+    <div class="hero-score-wrap">
+      <div class="score-ring">
+        <svg viewBox="0 0 180 180">
+          <circle class="track" cx="90" cy="90" r="80"></circle>
+          <circle class="fill" id="scoreFill" cx="90" cy="90" r="80"></circle>
+        </svg>
+        <div class="score-num"><span class="n count-up" id="scoreNum">0</span><span class="d">Health Score</span></div>
+      </div>
+      <p class="score-caption">A composite of your 10 vital-parameter groups — a strong number with a clear improvement path.</p>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="arrow"></div>Scroll to begin</div>
+</section>
+
+<!-- ============================= CHAPTER 1 — THE VIEW FROM 40,000 FEET ============================= -->
+<section class="chapter" id="ch-story">
+  <div class="wrap">
+    <div class="chapter-kicker reveal"><span class="num">Ch. 01</span><span class="label">The View From 40,000 Feet</span></div>
+    <h2 class="reveal">A quiet, well-run body — with three loose threads.</h2>
+    <p class="deck reveal reveal-delay-1">Strip away the 45 numbers and a simple picture emerges. Your metabolic engine, liver, thyroid, and immune system are running about as cleanly as a 27-year-old's should. Nothing here suggests disease. What it does suggest is <strong style="color:var(--ink)">three specific, traceable stories</strong> — each with its own root cause, each fixable.</p>
+
+    <div class="narrative-block reveal reveal-delay-2">
+      <p>Start with what almost gets lost in the noise: your fasting glucose (77.9 mg/dl), your HbA1c (5.4%), your fasting insulin (3.98 µIU/mL), your liver enzymes, your thyroid axis, your electrolytes, your white cell army — all of it sits comfortably mid-range or better. That's the quiet majority: fourteen systems that simply work, without commentary. It's the backdrop against which the interesting stuff stands out in sharp relief.</p>
+      <p>Because four numbers came back flagged, and a fifth pattern hid in plain sight, unflagged but unmistakable once you know what to look for. Read individually, they look like four unrelated problems. Read together, they resolve into <strong>three coherent narratives</strong> — each traceable to a single, identifiable root cause.</p>
+    </div>
+
+    <div class="thread-grid">
+      <div class="thread-card reveal">
+        <span class="num">01</span>
+        <span class="icon">💧</span>
+        <h3>The Hydration–Protein Axis</h3>
+        <p>Your blood urea (57.9), BUN (27.1), BUN/Creatinine ratio (28.2), and phosphorus (4.7) are all elevated — while your creatinine and eGFR (111) are excellent. That combination is the biochemical signature of a body processing more protein and less water than it's built to handle comfortably, not a kidney that's failing.</p>
+        <span class="tag tag-lifestyle">Root cause: lifestyle</span>
+      </div>
+      <div class="thread-card reveal reveal-delay-1">
+        <span class="num">02</span>
+        <span class="icon">🩸</span>
+        <h3>The Lipid Paradox</h3>
+        <p>Total cholesterol (211.5) and LDL (138.4) are flagged high. But your HDL is excellent (55.9), your triglycerides are low (75.8), and your Apo B/A1 ratio (0.74) sits in the low-risk band. This is a number worth fixing — but the surrounding evidence says it isn't the dangerous kind of high cholesterol.</p>
+        <span class="tag tag-diet">Root cause: diet composition</span>
+      </div>
+      <div class="thread-card reveal reveal-delay-2">
+        <span class="num">03</span>
+        <span class="icon">🧬</span>
+        <h3>The Blood Cell Mystery</h3>
+        <p>Your red cell count is unusually high (6.15 million/µl) while each cell runs smaller than normal (MCV 77.4, MCH 25.4) — yet your haemoglobin is fine and your iron studies don't add up to classic iron deficiency. Three independent lab indices all point the same direction: a possible inherited trait, not a nutrient problem.</p>
+        <span class="tag tag-genetic">Root cause: possibly constitutional</span>
+      </div>
+    </div>
+
+    <div class="fact-box reveal">
+      <span class="emoji">📖</span>
+      <div class="body"><b>How to read this report</b><span>Every chapter below follows the same rhythm: what the marker is, why doctors bother measuring it, the biology of what a high or low number physically means inside you, and — where relevant — exactly what to do about it. Flagged markers get the deepest treatment. Use the filter bar at the top of each chapter to jump straight to "Concerns Only" if you're short on time.</span></div>
+    </div>
+
+    <p class="pull-quote reveal">"A lab report is not a verdict. It's a snapshot of a system in motion — and this one is moving in a direction you can steer."</p>
+  </div>
+</section>
+
+<!-- ============================= CHAPTER 2 — VITALS & SCORE ============================= -->
+<section class="chapter tight" id="ch-vitals" style="background:var(--bg-alt);border-radius:48px;max-width:calc(var(--maxw) + 64px);margin:0 auto;">
+  <div class="wrap">
+    <div class="chapter-kicker reveal"><span class="num">Ch. 02</span><span class="label">The Vitals Room</span></div>
+    <h2 class="reveal">Before the deep dive — the headline numbers.</h2>
+    <div class="vitals-grid">
+      <div class="vital-tile reveal"><div class="lbl">Health Score</div><div class="v">83<span style="font-size:1rem;color:var(--ink-faint);">/100</span></div><div class="sub">Composite of 10 vital groups</div></div>
+      <div class="vital-tile reveal reveal-delay-1"><div class="lbl">BMI</div><div class="v">20.4</div><div class="sub">Normal weight (5'6", 59 kg)</div></div>
+      <div class="vital-tile reveal reveal-delay-2"><div class="lbl">Markers Flagged</div><div class="v">4<span style="font-size:1rem;color:var(--ink-faint);">/40</span></div><div class="sub">Plus 1 unflagged pattern of note</div></div>
+      <div class="vital-tile reveal reveal-delay-3"><div class="lbl">Systems Pristine</div><div class="v">7<span style="font-size:1rem;color:var(--ink-faint);">/11</span></div><div class="sub">Metabolic, liver, thyroid, immune & more</div></div>
+    </div>
+
+    <div class="summary-split">
+      <div class="reveal">
+        <h3 style="font-size:1.5rem;margin-bottom:18px;">The four flags, at a glance</h3>
+        <div class="concern-list">
+          <div class="concern-row"><div><div class="name">Total Cholesterol — 211.5 mg/dl</div><div class="chapref">Ch. 05 · The Lipid Highway</div></div><span class="status-pill status-concern">Concern</span></div>
+          <div class="concern-row"><div><div class="name">Serum Iron — 67 µg/dl</div><div class="chapref">Ch. 11 · The Micronutrient Vault</div></div><span class="status-pill status-concern">Concern</span></div>
+          <div class="concern-row"><div><div class="name">Serum Urea — 57.9 mg/dl</div><div class="chapref">Ch. 06 · The Filtration Plant</div></div><span class="status-pill status-concern">Concern</span></div>
+          <div class="concern-row"><div><div class="name">Phosphorus — 4.7 mg/dl</div><div class="chapref">Ch. 08 · The Mineral Ledger</div></div><span class="status-pill status-concern">Concern</span></div>
+          <div class="concern-row"><div><div class="name">RBC Count &amp; Cell Size Pattern</div><div class="chapref">Ch. 04 · The River of Blood</div></div><span class="status-pill status-watch">Worth Investigating</span></div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <h3 style="font-size:1.5rem;margin-bottom:18px;">Use the filter, everywhere</h3>
+        <p style="color:var(--ink-soft);font-size:15px;margin-bottom:16px;">Every deep-dive chapter below has the same three-way filter: <strong>All Markers</strong>, <strong>Concerns Only</strong>, and <strong>Optimal Only</strong>. It's sticky, so as you scroll through eleven chapters and 45 data points, you can stay focused on exactly what you came for.</p>
+        <div class="filter-pills">
+          <button class="filter-pill active" data-demo="all">All Markers <span class="count">45</span></button>
+          <button class="filter-pill" data-demo="concern">Concerns Only <span class="count">5</span></button>
+          <button class="filter-pill" data-demo="optimal">Optimal Only <span class="count">40</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= CHAPTER 3 — METABOLIC ENGINE ============================= -->
+<section class="chapter deep-dive" id="ch-metabolic" data-cat="metabolic">
+  <div class="filter-bar">
+    <div class="wrap">
+      <span class="filter-title">Filter This Chapter</span>
+      <div class="filter-pills" data-filtergroup="metabolic">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="concern">Concerns Only</button>
+        <button class="filter-pill" data-filter="optimal">Optimal Only</button>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="chapter-kicker reveal"><span class="num">Ch. 03</span><span class="label">The Metabolic Engine</span></div>
+    <h2 class="reveal">The furnace that turns food into you.</h2>
+    <p class="deck reveal reveal-delay-1">Every cell in your body runs on glucose, delivered and regulated by insulin. This is the system most responsible for how you'll age — and yours, at 27, is close to textbook-perfect.</p>
+    <div class="metric-grid" data-render="metabolic"></div>
+  </div>
+</section>
+
+<!-- ============================= CHAPTER 4 — RIVER OF BLOOD ============================= -->
+<section class="chapter deep-dive" id="ch-blood" data-cat="blood" style="background:var(--bg-alt);border-radius:48px;max-width:calc(var(--maxw) + 64px);margin:0 auto;">
+  <div class="filter-bar" style="background:rgba(243,243,245,.9);">
+    <div class="wrap">
+      <span class="filter-title">Filter This Chapter</span>
+      <div class="filter-pills" data-filtergroup="blood">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="concern">Concerns Only</button>
+        <button class="filter-pill" data-filter="optimal">Optimal Only</button>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="chapter-kicker reveal"><span class="num">Ch. 04</span><span class="label">The River of Blood</span></div>
+    <h2 class="reveal">5 million cells, born every second — and a genetic detective story.</h2>
+    <p class="deck reveal reveal-delay-1">Your red blood cells are couriers, ferrying oxygen from lungs to tissue and carbon dioxide back again. Here, the numbers tell a story that took three independent clues to piece together.</p>
+
+    <div class="fact-box reveal">
+      <span class="emoji">🔬</span>
+      <div class="body"><b>Did you know</b><span>Each red blood cell lives for about 120 days and travels roughly 12,000 miles through your vessels before being recycled by your spleen. You make about 2 million new ones every second, right now, as you read this.</span></div>
+    </div>
+
+    <div class="metric-grid" data-render="blood"></div>
+
+    <div class="table-wrap reveal">
+      <h4>The supporting cast — cell size &amp; clotting metrics</h4>
+      <table class="data-table">
+        <thead><tr><th>Marker</th><th>Your Value</th><th>Reference</th><th>Read</th></tr></thead>
+        <tbody id="bloodSupportTable"></tbody>
+      </table>
+      <p class="note">MCHC and clotting parameters were unremarkable — included here for completeness, not concern.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= CHAPTER 5 — LIPID HIGHWAY ============================= -->
+<section class="chapter deep-dive" id="ch-lipid" data-cat="lipid">
+  <div class="filter-bar">
+    <div class="wrap">
+      <span class="filter-title">Filter This Chapter</span>
+      <div class="filter-pills" data-filtergroup="lipid">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="concern">Concerns Only</button>
+        <button class="filter-pill" data-filter="optimal">Optimal Only</button>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="chapter-kicker reveal"><span class="num">Ch. 05</span><span class="label">The Lipid Highway</span></div>
+    <h2 class="reveal">Fat doesn't float free in blood — it travels by taxi.</h2>
+    <p class="deck reveal reveal-delay-1">Cholesterol is ferried through your bloodstream inside protein-wrapped particles called lipoproteins. The number of taxis, who's riding in them, and where they're headed matters more than any single "cholesterol" figure.</p>
+    <div class="metric-grid" data-render="lipid"></div>
+
+    <div class="table-wrap reveal">
+      <h4>The risk-score constellation — ratios &amp; apolipoproteins</h4>
+      <table class="data-table">
+        <thead><tr><th>Marker</th><th>Your Value</th><th>Reference / Risk Band</th><th>Read</th></tr></thead>
+        <tbody id="lipidSupportTable"></tbody>
+      </table>
+      <p class="note">Every one of these secondary lipid metrics — the numbers cardiologists increasingly trust more than total cholesterol alone — lands in the favourable zone.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= CHAPTER 6 — FILTRATION PLANT ============================= -->
+<section class="chapter deep-dive" id="ch-kidney" data-cat="kidney" style="background:var(--bg-alt);border-radius:48px;max-width:calc(var(--maxw) + 64px);margin:0 auto;">
+  <div class="filter-bar" style="background:rgba(243,243,245,.9);">
+    <div class="wrap">
+      <span class="filter-title">Filter This Chapter</span>
+      <div class="filter-pills" data-filtergroup="kidney">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="concern">Concerns Only</button>
+        <button class="filter-pill" data-filter="optimal">Optimal Only</button>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="chapter-kicker reveal"><span class="num">Ch. 06</span><span class="label">The Filtration Plant</span></div>
+    <h2 class="reveal">111 mL of blood, filtered every minute — by an excellent pair of kidneys.</h2>
+    <p class="deck reveal reveal-delay-1">Your kidneys are not the problem here — your eGFR of 111 is genuinely excellent for any age. The story in this chapter is about what you're asking them to filter, not how well they're doing it.</p>
+
+    <div class="fact-box reveal">
+      <span class="emoji">⚙️</span>
+      <div class="body"><b>Did you know</b><span>Your kidneys filter your entire blood volume roughly 40–60 times a day — about 180 litres of fluid — and reclaim 99% of it. They're arguably the most relentless recycling plant in the human body.</span></div>
+    </div>
+
+    <div class="metric-grid" data-render="kidney"></div>
+
+    <div class="table-wrap reveal">
+      <h4>Electrolytes — the body's electrical wiring</h4>
+      <table class="data-table">
+        <thead><tr><th>Marker</th><th>Your Value</th><th>Reference</th><th>Read</th></tr></thead>
+        <tbody id="electrolyteTable"></tbody>
+      </table>
+      <p class="note">Sodium, potassium and chloride were all comfortably mid-range — your fluid and electrical balance is sound.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= CHAPTER 7 — CHEMICAL FACTORY ============================= -->
+<section class="chapter deep-dive" id="ch-liver" data-cat="liver">
+  <div class="filter-bar">
+    <div class="wrap">
+      <span class="filter-title">Filter This Chapter</span>
+      <div class="filter-pills" data-filtergroup="liver">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="concern">Concerns Only</button>
+        <button class="filter-pill" data-filter="optimal">Optimal Only</button>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="chapter-kicker reveal"><span class="num">Ch. 07</span><span class="label">The Chemical Factory</span></div>
+    <h2 class="reveal">500+ jobs, one organ, zero complaints.</h2>
+    <p class="deck reveal reveal-delay-1">Your liver detoxifies, manufactures proteins, stores energy, and produces the bile that digests fat — all quietly, all at once. Every marker below says it's doing all of it without strain.</p>
+
+    <div class="fact-box reveal">
+      <span class="emoji">🌿</span>
+      <div class="body"><b>Did you know</b><span>Your liver can regenerate up to 70% of its own mass after injury and rebuild to full size in weeks — one of only a handful of human organs capable of true self-repair.</span></div>
+    </div>
+
+    <div class="metric-grid" data-render="liver"></div>
+
+    <div class="table-wrap reveal">
+      <h4>Protein economy — the liver's manufacturing output</h4>
+      <table class="data-table">
+        <thead><tr><th>Marker</th><th>Your Value</th><th>Reference</th><th>Read</th></tr></thead>
+        <tbody id="proteinTable"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= CHAPTER 8 — MINERAL LEDGER ============================= -->
+<section class="chapter deep-dive" id="ch-mineral" data-cat="mineral" style="background:var(--bg-alt);border-radius:48px;max-width:calc(var(--maxw) + 64px);margin:0 auto;">
+  <div class="filter-bar" style="background:rgba(243,243,245,.9);">
+    <div class="wrap">
+      <span class="filter-title">Filter This Chapter</span>
+      <div class="filter-pills" data-filtergroup="mineral">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="concern">Concerns Only</button>
+        <button class="filter-pill" data-filter="optimal">Optimal Only</button>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="chapter-kicker reveal"><span class="num">Ch. 08</span><span class="label">The Mineral Ledger</span></div>
+    <h2 class="reveal">99% of your calcium and 85% of your phosphorus live in your bones — this is the other 1%.</h2>
+    <p class="deck reveal reveal-delay-1">Calcium and phosphorus are partners, tightly regulated in a strict ratio. When one moves, it's rarely acting alone.</p>
+    <div class="metric-grid" data-render="mineral"></div>
+  </div>
+</section>
+
+<!-- ============================= CHAPTER 9 — COMMAND SIGNALS ============================= -->
+<section class="chapter deep-dive" id="ch-thyroid" data-cat="thyroid">
+  <div class="filter-bar">
+    <div class="wrap">
+      <span class="filter-title">Filter This Chapter</span>
+      <div class="filter-pills" data-filtergroup="thyroid">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="concern">Concerns Only</button>
+        <button class="filter-pill" data-filter="optimal">Optimal Only</button>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="chapter-kicker reveal"><span class="num">Ch. 09</span><span class="label">The Command Signals</span></div>
+    <h2 class="reveal">A walnut-sized gland, setting the pace for 37 trillion cells.</h2>
+    <p class="deck reveal reveal-delay-1">Your thyroid is a thermostat for your entire metabolism — how fast you burn energy, how warm you run, how quickly your heart beats. Its three-hormone conversation here reads as perfectly calibrated.</p>
+    <div class="metric-grid" data-render="thyroid"></div>
+  </div>
+</section>
+
+<!-- ============================= CHAPTER 10 — THE GUARDIANS ============================= -->
+<section class="chapter deep-dive" id="ch-immune" data-cat="immune" style="background:var(--bg-alt);border-radius:48px;max-width:calc(var(--maxw) + 64px);margin:0 auto;">
+  <div class="filter-bar" style="background:rgba(243,243,245,.9);">
+    <div class="wrap">
+      <span class="filter-title">Filter This Chapter</span>
+      <div class="filter-pills" data-filtergroup="immune">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="concern">Concerns Only</button>
+        <button class="filter-pill" data-filter="optimal">Optimal Only</button>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="chapter-kicker reveal"><span class="num">Ch. 10</span><span class="label">The Guardians</span></div>
+    <h2 class="reveal">An army on standby, and one whisper of smoke.</h2>
+    <p class="deck reveal reveal-delay-1">Your white blood cells are a five-branch defence force, and yours is fully staffed and calm. The only flicker of interest is a faint inflammatory signal — worth noting, not worrying about.</p>
+    <div class="metric-grid" data-render="immune"></div>
+
+    <div class="table-wrap reveal">
+      <h4>The five-branch defence force — white cell differential</h4>
+      <table class="data-table">
+        <thead><tr><th>Cell Type</th><th>% of Total</th><th>Absolute Count</th><th>Role</th></tr></thead>
+        <tbody id="wbcTable"></tbody>
+      </table>
+      <p class="note">Total leucocyte count: 7.5 ×10³/µL (ref 4.0–10.0) — right in the middle of normal. Every branch of the differential is proportionate and unremarkable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= CHAPTER 11 — MICRONUTRIENT VAULT ============================= -->
+<section class="chapter deep-dive" id="ch-micro" data-cat="micro">
+  <div class="filter-bar">
+    <div class="wrap">
+      <span class="filter-title">Filter This Chapter</span>
+      <div class="filter-pills" data-filtergroup="micro">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="concern">Concerns Only</button>
+        <button class="filter-pill" data-filter="optimal">Optimal Only</button>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="chapter-kicker reveal"><span class="num">Ch. 11</span><span class="label">The Micronutrient Vault</span></div>
+    <h2 class="reveal">Sunshine, plants, and a paradox in the iron ledger.</h2>
+    <p class="deck reveal reveal-delay-1">Vitamin D and B12 are in excellent shape. Iron tells a more layered story — one that connects directly back to the blood cell mystery in Chapter 4.</p>
+    <div class="metric-grid" data-render="micro"></div>
+  </div>
+</section>
+
+<!-- ============================= CHAPTER 12 — PARETO PRESCRIPTION ============================= -->
+<section class="chapter" id="ch-pareto" style="background:var(--bg-alt);border-radius:48px;max-width:calc(var(--maxw) + 64px);margin:0 auto;">
+  <div class="wrap">
+    <div class="chapter-kicker reveal"><span class="num">Ch. 12</span><span class="label">The Pareto Prescription</span></div>
+    <h2 class="reveal">Four interventions. One of them does most of the work.</h2>
+    <p class="deck reveal reveal-delay-1">Ranked by the biological leverage each move buys you — the ratio of effort invested to root causes resolved.</p>
+
+    <div class="pareto-list">
+      <div class="pareto-item top reveal">
+        <span class="pareto-badge">Highest Leverage</span>
+        <div class="pareto-rank">01</div>
+        <div>
+          <h4>Hydrate deliberately, and spread your protein across the day</h4>
+          <div class="effort">Effort: trivial &nbsp;·&nbsp; Cost: ₹0 &nbsp;·&nbsp; Resolves: 4 of 5 flagged findings</div>
+          <p>Drink 3.5–4 litres of water daily, front-load a glass with every meal, and instead of one or two large protein-heavy meals (or a big post-workout shake), spread your protein intake into 3–4 smaller doses through the day, each paired with water and fibrous vegetables.</p>
+          <div class="why-works"><b>Why this works biologically:</b> Your elevated urea, BUN, BUN/creatinine ratio, and phosphorus are the classic signature of a body metabolising more protein than it's diluting — a "pre-renal" pattern, not kidney damage (your eGFR of 111 proves the filter itself is excellent). Urea is a nitrogen-waste by-product of protein breakdown; it's cleared by the kidneys but concentrates in the blood when water intake can't keep pace with protein load. Phosphorus rises through the same dietary channel — meat, dairy, and supplements are phosphorus-dense. Adding water increases glomerular flow and dilutes concentration; spreading protein intake reduces the peak nitrogen load your liver has to convert to urea at any one time.</div>
+          <div class="impact-bar"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span></div>
+        </div>
+      </div>
+
+      <div class="pareto-item reveal reveal-delay-1">
+        <div class="pareto-rank">02</div>
+        <div>
+          <h4>Swap saturated fat for fibre and unsaturated fat — don't fear the whole panel</h4>
+          <div class="effort">Effort: moderate &nbsp;·&nbsp; Cost: ₹0–low &nbsp;·&nbsp; Resolves: total cholesterol &amp; LDL trend</div>
+          <p>Add 10–15g of soluble fibre daily (oats, psyllium husk, legumes, apples), replace ghee/butter/red meat fat with olive oil, nuts, and fatty fish 2–3x/week, and keep added sugar and refined carbs low so triglycerides — already excellent at 75.8 — stay that way.</p>
+          <div class="why-works"><b>Why this works biologically:</b> Soluble fibre binds bile acids in the gut, forcing the liver to pull cholesterol out of circulation to manufacture replacement bile acids — a direct, mechanical drain on circulating LDL. Swapping saturated fat reduces the raw material your liver uses to package new LDL particles (apoB-lipoproteins). Because your HDL, triglycerides, and Apo B/A1 ratio are already excellent, this is a "turn one dial" fix, not a metabolic overhaul.</div>
+          <div class="impact-bar"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span><span></span></div>
+        </div>
+      </div>
+
+      <div class="pareto-item reveal reveal-delay-2">
+        <div class="pareto-rank">03</div>
+        <div>
+          <h4>Get one confirmatory blood draw: HPLC / haemoglobin electrophoresis + iron panel</h4>
+          <div class="effort">Effort: one appointment &nbsp;·&nbsp; Cost: low &nbsp;·&nbsp; Resolves: the blood cell mystery, permanently</div>
+          <p>Ask your physician for a haemoglobin HPLC (or electrophoresis) plus a full iron panel (TIBC, transferrin saturation) — a single blood draw that will tell you definitively whether the RBC/MCV/MCH pattern in Chapter 4 is a thalassemia trait or something else.</p>
+          <div class="why-works"><b>Why this works biologically:</b> Right now, three independent indices (Mentzer, RDWI, Green &amp; King) all lean toward an inherited trait rather than iron deficiency — but a trait diagnosis changes what you should <em>not</em> do (don't self-supplement iron; excess iron has nowhere useful to go and can accumulate) as much as what you should. It also carries a practical, high-value implication for the future: if you or a partner both carry the trait, that's meaningful information before starting a family.</div>
+          <div class="impact-bar"><span class="filled"></span><span class="filled"></span><span></span><span></span><span></span></div>
+        </div>
+      </div>
+
+      <div class="pareto-item reveal reveal-delay-3">
+        <div class="pareto-rank">04</div>
+        <div>
+          <h4>Re-test hsCRP in 4 months, after tightening sleep &amp; processed food intake</h4>
+          <div class="effort">Effort: low, passive &nbsp;·&nbsp; Cost: ₹0 &nbsp;·&nbsp; Resolves: confirms whether the inflammation blip was noise</div>
+          <p>hsCRP at 1.28 mg/L is barely over the "optimal" line of 1.0 — not remotely alarming, but worth re-checking once (as your lab already recommends) after normal sleep, hydration, and a lower load of fried/processed food.</p>
+          <div class="why-works"><b>Why this works biologically:</b> hsCRP is produced by the liver within hours of almost any inflammatory signal — a late night, a minor gum infection, even a hard workout can nudge it. A single reading this close to threshold is more likely biological noise than a true signal; a repeat test resolves the ambiguity cheaply.</div>
+          <div class="impact-bar"><span class="filled"></span><span></span><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= CHAPTER 13 — ROADMAP ============================= -->
+<section class="chapter" id="ch-roadmap">
+  <div class="wrap">
+    <div class="chapter-kicker reveal"><span class="num">Ch. 13</span><span class="label">Your Roadmap</span></div>
+    <h2 class="reveal">From insight to habit, on a calendar you'll actually follow.</h2>
+    <p class="deck reveal reveal-delay-1">Two views of the same plan: the daily rhythm, and the retest calendar your lab has already laid out for you.</p>
+
+    <div class="roadmap-tabs reveal">
+      <button class="rtab active" data-panel="daily">Daily Rhythm</button>
+      <button class="rtab" data-panel="tests">Retest Calendar</button>
+    </div>
+
+    <div class="rpanel active" id="panel-daily">
+      <div class="habit-grid">
+        <div class="habit-card">
+          <div class="time">Morning</div>
+          <ul>
+            <li>500ml water on waking, before coffee or tea</li>
+            <li>Protein-forward breakfast (eggs, dairy, or legumes) kept moderate, not maximal</li>
+            <li>5 minutes of sunlight exposure — maintains your already-healthy Vitamin D</li>
+          </ul>
+        </div>
+        <div class="habit-card">
+          <div class="time">Through the Day</div>
+          <ul>
+            <li>Sip water steadily — aim for pale-yellow urine as your gauge, not a fixed number</li>
+            <li>Split protein across lunch + a snack rather than one large dose</li>
+            <li>Swap one fried or packaged snack for fruit, nuts, or roasted chana</li>
+          </ul>
+        </div>
+        <div class="habit-card">
+          <div class="time">Evening</div>
+          <ul>
+            <li>Cook one meal a week with olive oil instead of ghee/butter</li>
+            <li>Add a fibre source (oats, salad, legumes) to dinner</li>
+            <li>Wind down 30 minutes before bed — sleep debt is a quiet driver of inflammation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="rpanel" id="panel-tests">
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="m">Month 1</div>
+          <div class="tests"><span>Kidney Function Test — Advance</span><span>Urine Routine &amp; Microscopy</span></div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="m">Month 3</div>
+          <div class="tests"><span>Lipid Profile — Advance</span><span>Liver Function Test</span></div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="m">Month 4</div>
+          <div class="tests"><span>HsCRP — High Sensitivity</span><span>Homocysteine</span><span>CPK, Total</span></div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="m">Anytime, once</div>
+          <div class="tests"><span>Haemoglobin HPLC / Electrophoresis</span><span>Iron Panel (TIBC + Transferrin Saturation)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= EPILOGUE ============================= -->
+<section class="chapter" id="ch-epilogue">
+  <div class="wrap">
+    <div class="epilogue reveal">
+      <div class="epilogue-content">
+        <div class="kicker">Epilogue</div>
+        <h2>Your body already proved it can run a tight ship.</h2>
+        <p>At 27, with a lean frame and a metabolic, hepatic, thyroid, and immune profile most people would be thrilled to have at any age, you're not starting a health project from zero. You're refining an already well-built machine. Three threads, each traceable to a specific cause, each responsive to a specific, small action — not a lifestyle overhaul, not a diagnosis to fear, just information you now have that you didn't have yesterday.</p>
+        <p>The highest-leverage move here costs nothing and takes no willpower: a glass of water, spread across the day, alongside meals you were probably going to eat anyway. That single habit resolves four of your five flagged findings. Everything else on this list is refinement, not repair.</p>
+        <div class="sig">Here's to the next report telling an even quieter story.<span>Compiled from your Healthians / Nugenomics report, 06 July 2026</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>This report translates your laboratory data into plain-language biological narrative for educational purposes. It is not a medical diagnosis and does not replace consultation with a qualified physician — particularly before starting any supplement, changing medication, or acting on the possible genetic trait discussed in Chapter 4.</p>
+    <p>Source: Healthians / Nugenomics Comprehensive Health Analysis Report, Booking ID 19034687432, sample collected 06 July 2026.</p>
+  </div>
+</footer>
+
+<script>
+// ======================================================================
+// DATA MODEL — every marker from the report, one source of truth
+// ======================================================================
+function m(o){ return o; }
+
+const METRICS = {
+
+metabolic: [
+  m({title:"HbA1c — Your 3-Month Glucose Diary", kicker:"Glycosylated Haemoglobin", status:"optimal",
+    subs:[{label:"HbA1c", value:5.4, unit:"%", refLow:4.2, refHigh:5.7, scaleMin:3, scaleMax:8, status:"optimal"}],
+    intro:"When glucose floats in your bloodstream, some of it permanently glycates onto haemoglobin inside red blood cells — and stays stuck there for the cell's ~120-day lifespan. HbA1c measures what percentage of your haemoglobin has been \"sugar-coated,\" giving doctors a 3-month average blood sugar reading from a single draw, immune to what you ate this morning.",
+    physiology:"Chronically high glucose glycates not just haemoglobin but proteins throughout your body — in blood vessel walls, nerves, and the lens of your eye — which is the slow mechanism behind diabetic complications. The American Diabetes Association draws the line at 5.7% for prediabetes and 6.5% for diabetes.",
+    decode:"At 5.4%, you sit comfortably in the non-diabetic range, corresponding to an average glucose of about 108 mg/dl over the last three months. This is a genuinely excellent number for any age.",
+    fact:"Because red blood cells live ~120 days, HbA1c is essentially unhackable by a good week of eating — it reflects months, not days."
+  }),
+  m({title:"Fasting Blood Glucose — The Morning Baseline", kicker:"Glucose, Fasting", status:"optimal",
+    subs:[{label:"Fasting Glucose", value:77.9, unit:"mg/dl", refLow:70, refHigh:100, scaleMin:50, scaleMax:140, status:"optimal"}],
+    intro:"This is the amount of glucose circulating in your blood after roughly 8–12 hours without food — the moment your body relies purely on stored liver glycogen to keep your brain fuelled.",
+    physiology:"A healthy fasting number reflects two things working in concert: your liver correctly halting glucose release once levels are adequate, and your cells staying sensitive enough to insulin's signal that background glucose doesn't creep up. Elevated fasting glucose (>100) signals insulin resistance building years before diabetes is diagnosable; very low readings can indicate excess insulin, adrenal or pituitary issues, or prolonged fasting.",
+    decode:"At 77.9 mg/dl, you're well inside the normal band and nowhere near the 100 mg/dl prediabetes threshold — a sign your glucose-regulating machinery is working exactly as designed.",
+  }),
+  m({title:"Fasting Insulin — The Volume Knob", kicker:"Insulin (Fasting)", status:"optimal",
+    subs:[{label:"Insulin, Fasting", value:3.98, unit:"µIU/mL", refLow:1.9, refHigh:23, scaleMin:0, scaleMax:26, status:"optimal"}],
+    intro:"Insulin is the hormone that unlocks your cells to let glucose in. Fasting insulin tells you how hard your pancreas is having to work to keep glucose normal — a low number achieving a normal glucose is the best possible combination.",
+    physiology:"As cells become insulin-resistant (often from excess visceral fat, inactivity, or chronic overeating), the pancreas compensates by pumping out more insulin to force the same glucose-lowering effect — so fasting insulin often rises years before glucose itself does, making it an earlier warning sign than glucose or even HbA1c.",
+    decode:"Your fasting insulin of 3.98 µIU/mL sits in the lower-normal band, alongside a normal fasting glucose — meaning your body needs very little insulin to keep glucose in check. That's a hallmark of good insulin sensitivity, not a red flag.",
+    fact:"Some longevity researchers consider low fasting insulin, more than glucose itself, the single best proxy for metabolic health in someone without diabetes."
+  })
+],
+
+blood: [
+  m({title:"The Central Mystery — Red Cell Count, Size &amp; a Genetic Clue", kicker:"RBC · MCV · MCH · Diagnostic Indices", status:"watch", flagged:true,
+    subs:[
+      {label:"RBC Count", value:6.15, unit:"×10⁶/µl", refLow:4.50, refHigh:5.50, scaleMin:3.5, scaleMax:7, status:"concern"},
+      {label:"MCV (Cell Volume)", value:77.4, unit:"fL", refLow:83.0, refHigh:101.0, scaleMin:65, scaleMax:110, status:"concern"},
+      {label:"MCH (Cell Haemoglobin)", value:25.4, unit:"pg", refLow:27.0, refHigh:32.0, scaleMin:20, scaleMax:35, status:"concern"},
+      {label:"Haemoglobin", value:15.6, unit:"g/dL", refLow:13.0, refHigh:17.0, scaleMin:9, scaleMax:19, status:"optimal"}
+    ],
+    intro:"MCV is the average volume of a single red blood cell; MCH is how much haemoglobin sits inside it. Together with a raw RBC count, they describe the size and cargo of your oxygen-carriers — and yours describe a genuinely interesting pattern.",
+    physiology:"The textbook cause of small (\"microcytic\") red cells is iron deficiency: without enough iron, the bone marrow can't build full-sized haemoglobin-rich cells, and — critically — it also produces fewer of them, so RBC count typically drops. Your cells are small (MCV 77.4, below the 83 floor) and haemoglobin-light per cell (MCH 25.4) — but your RBC count is elevated (6.15 million/µl, above the 5.50 ceiling), and your total haemoglobin is completely normal (15.6 g/dL). That combination — small cells, but more of them, adding up to normal total oxygen-carrying capacity — is the classic fingerprint of a thalassemia trait, an inherited variation in haemoglobin gene production, rather than a nutritional deficiency.",
+    decode:"Your lab calculated three independent screening indices from these same numbers, and all three agree: the Mentzer Index (MCV÷RBC = 12.59, with <13 favouring thalassemia trait over iron-deficiency anaemia), the Green &amp; King Index (53, with <65 favouring thalassemia trait), and the RDWI (173.68, with <220 favouring thalassemia trait). Unanimous agreement across three separate formulas is a strong signal — though not a diagnosis. Notably, you are not anaemic at all: your haemoglobin (15.6) is healthy, which is exactly what you'd expect if your marrow is simply compensating for smaller cells by making more of them.",
+    fix:"Don't start iron supplements based on this pattern alone — if this is a thalassemia trait, your body's iron stores are likely fine, and unnecessary iron has nowhere useful to go. Instead, request one confirmatory test: haemoglobin HPLC or electrophoresis, ideally alongside a full iron panel (TIBC, transferrin saturation). It's a single blood draw that turns this from a hypothesis into a fact — one with genuine value if you're ever planning a family, since thalassemia trait status matters for a partner's screening too.",
+    fact:"Thalassemia trait is unusually common across India, the Mediterranean, and Africa — regions with a long history of malaria. Carrying one altered gene copy appears to have offered historical protection against malarial infection, a textbook example of evolutionary trade-off."
+  }),
+  m({title:"Erythrocyte Sedimentation Rate — The Old-School Inflammation Clock", kicker:"ESR", status:"optimal",
+    subs:[{label:"ESR", value:1, unit:"mm/hr", refLow:0, refHigh:10, scaleMin:0, scaleMax:30, status:"optimal"}],
+    intro:"ESR measures how fast red blood cells settle to the bottom of a test tube in one hour. Inflammation makes blood proteins clump cells together, so they fall faster — a crude but century-old proxy for systemic inflammation.",
+    physiology:"A very low ESR, as you have, simply confirms an absence of the kind of protein changes seen in active inflammation, chronic infection, or autoimmune activity.",
+    decode:"At 1 mm/hr against a ceiling of 10, this is about as clean a reading as this test produces — no inflammatory signal detected here at all.",
+  })
+],
+
+lipid: [
+  m({title:"Total Cholesterol — The Headline Number", kicker:"Total Cholesterol", status:"concern", flagged:true,
+    subs:[{label:"Total Cholesterol", value:211.5, unit:"mg/dl", refLow:0, refHigh:200, scaleMin:100, scaleMax:280, status:"concern"}],
+    intro:"Total cholesterol adds up all the cholesterol travelling in your blood — the \"bad\" LDL, the \"good\" HDL, and the triglyceride-carrying VLDL — into one number. It's a useful headline, but a genuinely poor predictor on its own.",
+    physiology:"Cholesterol itself isn't villainous — it's essential for building cell membranes, hormones, and vitamin D. Risk comes specifically from too much LDL-cholesterol accumulating in artery walls over decades, triggering the plaque-buildup process called atherosclerosis. A high total number driven by high HDL is a completely different biological story than one driven by high LDL.",
+    decode:"At 211.5 mg/dl, you're just over the 200 \"desirable\" line, in the borderline-high band (200–239). Read alone, this looks concerning — but the next three cards below change the picture substantially.",
+    fix:"Add soluble fibre daily, replace saturated fat (ghee, red meat, fried food) with unsaturated fat (olive oil, nuts, fish), and re-test your full lipid profile in 3 months as your lab already recommends.",
+  }),
+  m({title:"LDL Cholesterol — The Delivery Trucks", kicker:"Serum LDL Cholesterol (Direct)", status:"watch",
+    subs:[{label:"LDL Cholesterol", value:138.4, unit:"mg/dl", refLow:0, refHigh:100, scaleMin:40, scaleMax:200, status:"watch"}],
+    intro:"LDL particles carry cholesterol from your liver out to tissues that need it. The trouble starts when there are more delivery trucks on the road than tissue demand requires — the surplus gets deposited in artery walls instead.",
+    physiology:"LDL is now understood as directly, causally atherogenic — not just a risk marker but a physical building block of arterial plaque. Cumulative LDL exposure over decades matters more than any single reading; someone in their 20s with moderately elevated LDL has a long runway during which the same number does more compounding damage than it would starting at 60.",
+    decode:"At 138.4 mg/dl, you're in the \"borderline high\" band (130–159), a meaningful step above optimal (<100) but far from the \"very high\" territory (≥190). Your lab measured this directly (not via calculation), which is the more reliable method.",
+    fix:"This responds to the same fibre-and-fat-swap plan as total cholesterol — LDL is the component driving that headline number.",
+  }),
+  m({title:"HDL Cholesterol — The Cleanup Crew", kicker:"Serum HDL Cholesterol", status:"optimal",
+    subs:[{label:"HDL Cholesterol", value:55.9, unit:"mg/dl", refLow:40, refHigh:60, scaleMin:20, scaleMax:80, status:"optimal"}],
+    intro:"HDL particles do reverse transport — picking up excess cholesterol from artery walls and tissues and hauling it back to the liver for disposal. Higher is generally protective, which is why it's nicknamed \"good\" cholesterol.",
+    physiology:"HDL's protective effect comes from this reverse-transport function plus antioxidant and anti-inflammatory properties on the vessel wall itself — it actively works against the plaque-forming process that LDL contributes to.",
+    decode:"At 55.9 mg/dl, you're near the top of the reference range — genuinely good news, and one of the reasons your overall cardiovascular risk picture reads better than the total cholesterol number alone would suggest.",
+    fact:"Regular aerobic exercise is one of the few interventions proven to meaningfully raise HDL — a good reason to keep your activity level up even though your number is already strong."
+  }),
+  m({title:"Triglycerides &amp; VLDL — The Energy Reserve Tanks", kicker:"Serum Triglycerides · VLDL", status:"optimal",
+    subs:[
+      {label:"Triglycerides", value:75.8, unit:"mg/dl", refLow:0, refHigh:150, scaleMin:20, scaleMax:250, status:"optimal"},
+      {label:"VLDL Cholesterol", value:17.0, unit:"mg/dl", refLow:0, refHigh:30, scaleMin:0, scaleMax:45, status:"optimal"}
+    ],
+    intro:"Triglycerides are stored fat energy circulating in blood, mostly built from excess carbohydrate and alcohol calories your body didn't immediately burn. VLDL is the particle that carries them, calculated directly from your triglyceride level.",
+    physiology:"High triglycerides paired with low HDL is one of the most reliable blood signatures of metabolic syndrome and insulin resistance — the two often move together because both are driven by excess refined carbohydrate and inactivity.",
+    decode:"At 75.8 mg/dl, your triglycerides sit well under the 150 threshold — combined with your excellent HDL, this rules out the classic \"bad\" lipid pattern (high triglycerides + low HDL) seen in metabolic syndrome. Your elevated LDL appears to be an isolated finding, not part of a broader metabolic problem.",
+  })
+],
+
+kidney: [
+  m({title:"Urea &amp; BUN — Same Signal, Two Voices", kicker:"Blood Urea · BUN · BUN/Creatinine Ratio", status:"concern", flagged:true,
+    subs:[
+      {label:"Serum Urea", value:57.9, unit:"mg/dl", refLow:17, refHigh:43, scaleMin:10, scaleMax:75, status:"concern"},
+      {label:"Blood Urea Nitrogen", value:27.1, unit:"mg/dl", refLow:7.92, refHigh:20.03, scaleMin:5, scaleMax:35, status:"concern"},
+      {label:"BUN / Creatinine Ratio", value:28.19, unit:"ratio", refLow:10, refHigh:20, scaleMin:5, scaleMax:35, status:"concern"}
+    ],
+    intro:"Urea is the waste product your liver makes when it breaks down excess protein for energy or storage; your kidneys then filter it out of blood. BUN measures the same molecule from its nitrogen content — urea and BUN are, biologically, the same story told two ways.",
+    physiology:"Urea rises for one of two broad reasons: the kidneys are struggling to filter it out (a true renal problem), or the liver is producing more of it than usual because of high protein intake, dehydration, GI bleeding, or high catabolic states like intense exercise or fasting. The BUN/Creatinine ratio is the key that tells these apart: a normal ratio (10–20) with high urea suggests a kidney problem; a high ratio (>20) with normal creatinine, as you have, points specifically toward a \"pre-renal\" cause — the kidneys aren't struggling, they're just being asked to clear an unusually large or concentrated nitrogen load.",
+    decode:"Your BUN/creatinine ratio of 28.19 is well above the 20 pre-renal cutoff, while your creatinine and eGFR (see next card) are excellent. This is a textbook pre-renal pattern most consistent with a combination of higher protein intake and insufficient water intake relative to that protein load — not kidney disease.",
+    fix:"This is priority #1 in your Pareto plan (Chapter 12): increase water intake to 3.5–4L/day and spread protein intake across the day rather than concentrating it in one or two large servings or supplement shakes.",
+  }),
+  m({title:"Creatinine &amp; eGFR — The Filtration Report Card", kicker:"Serum Creatinine · Estimated GFR", status:"optimal",
+    subs:[
+      {label:"Serum Creatinine", value:0.96, unit:"mg/dl", refLow:0.2, refHigh:1.2, scaleMin:0.1, scaleMax:1.6, status:"optimal"},
+      {label:"eGFR (CKD-EPI)", value:111.10, unit:"mL/min/1.73m²", refLow:78, refHigh:146, scaleMin:40, scaleMax:150, status:"optimal"}
+    ],
+    intro:"Creatinine is a waste product from muscle metabolism, cleared almost exclusively by the kidneys at a steady rate — making it a reliable proxy for kidney filtration. eGFR converts that number, plus your age and sex, into an estimate of exactly how many millilitres of blood your kidneys filter per minute.",
+    physiology:"Because creatinine production is fairly constant (proportional to muscle mass) and clearance depends almost entirely on kidney function, a normal creatinine alongside a high eGFR is about as strong a statement of healthy kidney filtration as blood work can make.",
+    decode:"An eGFR of 111 mL/min/1.73m² sits comfortably within (even above the midpoint of) the expected range for your age group (78–146). This is the clearest evidence that the elevated urea/BUN above is a supply-and-demand issue, not a filtration problem.",
+  }),
+  m({title:"Uric Acid — The Purine Ledger", kicker:"Serum Uric Acid", status:"optimal",
+    subs:[{label:"Uric Acid", value:5.1, unit:"mg/dl", refLow:3.5, refHigh:7.2, scaleMin:2, scaleMax:9, status:"optimal"}],
+    intro:"Uric acid is the breakdown product of purines — compounds found in high concentrations in red meat, organ meats, seafood, and alcohol, and also generated internally from normal cell turnover.",
+    physiology:"When production outpaces the kidneys' ability to excrete it, uric acid crystallises in joints (causing gout) or contributes to kidney stones. It's also increasingly studied as an independent marker linked to insulin resistance and metabolic syndrome.",
+    decode:"At 5.1 mg/dl, you're mid-range — comfortable now, but worth keeping an eye on if your dietary protein intake trends higher, since purine-rich protein sources (red meat, shellfish) would move this number alongside the urea findings above.",
+  })
+],
+
+liver: [
+  m({title:"AST &amp; ALT — The Liver's Alarm Bells", kicker:"SGOT · SGPT", status:"optimal",
+    subs:[
+      {label:"AST (SGOT)", value:15.90, unit:"U/L", refLow:3, refHigh:50, scaleMin:0, scaleMax:70, status:"optimal"},
+      {label:"ALT (SGPT)", value:12.3, unit:"U/L", refLow:3, refHigh:50, scaleMin:0, scaleMax:70, status:"optimal"}
+    ],
+    intro:"AST and ALT are enzymes that live inside liver cells to help metabolise amino acids. They only spill into the bloodstream in meaningful amounts when liver cells are damaged or under stress — making them the most direct proxy for liver cell injury available in a routine panel.",
+    physiology:"ALT is fairly liver-specific; AST also lives in heart and muscle tissue, so a rise in AST alone (without ALT) can point toward muscle strain rather than liver stress. Both being low and roughly proportionate, as yours are, is the clearest possible sign of undamaged liver tissue.",
+    decode:"At 15.9 and 12.3 U/L respectively — both well under the halfway point of their reference ranges — your liver cells show no sign of inflammation, fatty infiltration, or toxin/alcohol-related stress.",
+    fact:"Your SGOT/SGPT ratio (1.29) also falls in the normal 0.7–1.4 band — a ratio that, if inverted or elevated beyond ~2, would itself raise suspicion of alcoholic liver stress."
+  }),
+  m({title:"ALP &amp; GGT — The Bile Duct Duo", kicker:"Alkaline Phosphatase · Gamma GT", status:"optimal",
+    subs:[
+      {label:"ALP", value:84.70, unit:"U/L", refLow:43, refHigh:115, scaleMin:20, scaleMax:150, status:"optimal"},
+      {label:"GGT", value:17.7, unit:"U/L", refLow:5, refHigh:55, scaleMin:0, scaleMax:70, status:"optimal"}
+    ],
+    intro:"ALP is produced by both liver bile ducts and bone tissue, so it's a dual-purpose marker; GGT is far more liver-specific and rises particularly with bile duct obstruction or regular alcohol exposure, which is why the two are read together.",
+    physiology:"When ALP is elevated but GGT is normal, bone (not liver) is usually the source — a helpful diagnostic trick. When both rise together, it typically points to bile flow obstruction.",
+    decode:"Both sit mid-range and unremarkable, telling you your bile ducts are clear and there's no meaningful alcohol-related enzyme stress.",
+  }),
+  m({title:"Bilirubin — The Pigment of Recycled Blood", kicker:"Total · Direct · Indirect Bilirubin", status:"watch",
+    subs:[
+      {label:"Total Bilirubin", value:0.24, unit:"mg/dl", refLow:0.3, refHigh:1.2, scaleMin:0.1, scaleMax:1.6, status:"watch"},
+      {label:"Direct Bilirubin", value:0.06, unit:"mg/dl", refLow:0, refHigh:0.2, scaleMin:0, scaleMax:0.4, status:"optimal"},
+      {label:"Indirect Bilirubin", value:0.18, unit:"mg/dl", refLow:0.0, refHigh:0.8, scaleMin:0, scaleMax:1.2, status:"optimal"}
+    ],
+    intro:"Bilirubin is the golden-yellow pigment produced when old red blood cells are broken down and recycled, primarily in the spleen. Your liver then processes (\"conjugates\") it for excretion — the split between direct and indirect bilirubin tells you which stage of that journey is involved.",
+    physiology:"High bilirubin, especially the direct fraction, usually signals bile duct obstruction or liver dysfunction; high indirect bilirubin points toward increased red cell breakdown (haemolysis) or a processing bottleneck like Gilbert's syndrome. Low bilirubin, by contrast, is rarely clinically meaningful — it's simply the low end of normal turnover.",
+    decode:"Your total bilirubin (0.24) sits marginally below the lab's stated floor of 0.3 — a trivial, clinically insignificant difference well within normal day-to-day and assay variability, especially since both the direct and indirect components individually sit safely mid-range. This isn't something to act on.",
+    fact:"Bilirubin is also a natural antioxidant — some research links moderately higher levels with lower oxidative stress, which is one reason doctors don't chase low bilirubin the way they chase high."
+  }),
+  m({title:"Total Protein, Albumin &amp; Globulin — The Manufacturing Ledger", kicker:"Protein Panel", status:"optimal",
+    subs:[
+      {label:"Total Protein", value:7.38, unit:"g/dl", refLow:6.6, refHigh:8.3, scaleMin:5, scaleMax:9.5, status:"optimal"},
+      {label:"Albumin", value:4.38, unit:"g/dl", refLow:3.5, refHigh:5.2, scaleMin:2.5, scaleMax:6, status:"optimal"},
+      {label:"Globulin", value:3.00, unit:"g/dl", refLow:2.0, refHigh:3.5, scaleMin:1, scaleMax:4.5, status:"optimal"}
+    ],
+    intro:"Albumin, made exclusively by the liver, is the workhorse protein that keeps fluid inside your blood vessels and ferries hormones and medications through your bloodstream. Globulins are a broader family, including your antibodies. Together they make up total protein.",
+    physiology:"Low albumin suggests liver disease, malnutrition, or protein loss (through kidneys, gut, or burns); high globulin can indicate chronic infection or inflammation, while low globulin can suggest an underlying immune deficiency.",
+    decode:"All three numbers, plus your Albumin/Globulin ratio (1.46, within the 1.2–2.0 healthy band), sit comfortably mid-range — clear evidence of good nutritional status and a liver manufacturing proteins exactly as it should.",
+  })
+],
+
+mineral: [
+  m({title:"Phosphorus — The Overlooked Mineral", kicker:"Serum Phosphorus", status:"concern", flagged:true,
+    subs:[{label:"Phosphorus", value:4.7, unit:"mg/dl", refLow:2.5, refHigh:4.5, scaleMin:1.5, scaleMax:6, status:"concern"}],
+    intro:"Phosphorus partners with calcium to build bone and teeth (85% of your body's phosphorus lives there), but it's also essential for the energy currency of every cell — ATP — and for the structure of your DNA itself.",
+    physiology:"Phosphorus levels are governed by diet (it's abundant in meat, dairy, nuts, and processed foods with phosphate additives), kidney excretion, and a hormonal dance with calcium and vitamin D. Since your calcium is normal and your kidney filtration is excellent, a mildly elevated phosphorus most plausibly reflects dietary intake — meat, dairy, protein supplements, or processed foods rich in phosphate additives.",
+    decode:"At 4.7 mg/dl, you're only marginally above the 4.5 ceiling — a small overshoot that fits neatly into the same \"higher protein intake\" story as your urea and BUN findings in Chapter 6, rather than signalling a separate problem.",
+    fix:"The same fix as Chapter 6 applies here: moderate concentrated high-protein/high-dairy intake and stay well hydrated. If it's diet-driven, it will normalise on its own timeline as those habits shift.",
+    fact:"Levels below 1.5 mg/dl can cause muscle weakness and even coma — phosphorus is a mineral your body regulates within a remarkably tight range for good reason."
+  }),
+  m({title:"Calcium — The Body's Structural Bank", kicker:"Serum Calcium", status:"optimal",
+    subs:[{label:"Calcium", value:9.8, unit:"mg/dl", refLow:8.8, refHigh:10.6, scaleMin:7, scaleMax:12, status:"optimal"}],
+    intro:"Calcium isn't just bone-building material — the tiny fraction circulating in your blood is essential for muscle contraction (including your heartbeat), nerve signalling, and blood clotting, which is why the body keeps it in an extremely tight range using bone as a reserve tank.",
+    physiology:"Low calcium (hypocalcaemia) is commonly linked to kidney disease, vitamin D deficiency, or low magnesium; high calcium can suggest overactive parathyroid glands or, rarely, certain cancers.",
+    decode:"At 9.8 mg/dl, you're comfortably mid-range — good evidence your parathyroid-vitamin D-calcium regulatory loop is working properly, consistent with your healthy Vitamin D level in Chapter 11.",
+  })
+],
+
+thyroid: [
+  m({title:"TSH, T3 &amp; T4 — The Thermostat and Its Signals", kicker:"Thyroid Stimulating Hormone · Total T3 · Total T4", status:"optimal",
+    subs:[
+      {label:"TSH (Ultrasensitive)", value:1.791, unit:"µIU/mL", refLow:0.38, refHigh:5.33, scaleMin:0, scaleMax:7, status:"optimal"},
+      {label:"T3, Total", value:1.09, unit:"ng/ml", refLow:0.87, refHigh:1.78, scaleMin:0.5, scaleMax:2.2, status:"optimal"},
+      {label:"T4, Total", value:10.61, unit:"µg/dl", refLow:5.48, refHigh:14.28, scaleMin:3, scaleMax:17, status:"optimal"}
+    ],
+    intro:"Your pituitary gland releases TSH to tell your thyroid how much hormone to produce — like a thermostat calling for more or less heat. The thyroid responds by releasing T4 (a storage form) which tissues convert into T3, the active hormone that actually speeds up cellular metabolism.",
+    physiology:"This is a classic negative-feedback loop: when T3/T4 run low, the pituitary raises TSH to demand more output; when they run high, TSH drops to rein production in. A normal TSH sitting alongside normal T3 and T4, as yours does, is the clearest sign the entire loop — pituitary, thyroid, and peripheral conversion — is calibrated correctly.",
+    decode:"Your TSH (1.79) sits almost exactly in the middle of its range, with T3 and T4 both comfortably mid-band — no evidence of an underactive (hypothyroid) or overactive (hyperthyroid) gland, and no compensatory strain visible anywhere in the loop.",
+    fact:"Thyroid hormone follows its own daily rhythm, peaking between 2–4 AM and dipping between 6–10 AM — up to a 50% swing — which is why your lab notes sample timing as a factor in interpretation."
+  })
+],
+
+immune: [
+  m({title:"CRP &amp; hsCRP — Two Lenses on the Same Alarm System", kicker:"C-Reactive Protein · High-Sensitivity CRP", status:"watch", flagged:true,
+    subs:[
+      {label:"CRP (Quantitative)", value:1.19, unit:"mg/L", refLow:0, refHigh:5, scaleMin:0, scaleMax:8, status:"optimal"},
+      {label:"hs-CRP", value:1.28, unit:"mg/L", refLow:0, refHigh:1.0, scaleMin:0, scaleMax:4, status:"watch"}
+    ],
+    intro:"C-reactive protein is manufactured by your liver within hours of almost any inflammatory trigger, anywhere in the body — an infection, an injury, gum disease, or even significant physical stress. Standard CRP is tuned to detect large spikes (like infection); the high-sensitivity version (hsCRP) is tuned to detect the faint, chronic background hum linked to cardiovascular risk.",
+    physiology:"The American Heart Association defines hsCRP risk bands as: under 1.0 mg/L (low cardiovascular risk), 1.0–3.0 mg/L (average risk), and over 3.0 mg/L (high risk). It's best used alongside — never instead of — traditional risk factors like LDL, blood pressure, and smoking history.",
+    decode:"Your standard CRP (1.19) is comfortably normal, ruling out any acute inflammatory process. Your hsCRP (1.28) sits just above the 1.0 \"low risk\" line, in the \"average risk\" band — a faint signal, not a fire alarm. Given your excellent ESR, lipid ratios, and metabolic markers elsewhere in this report, this is most plausibly ordinary day-to-day biological noise (sleep, minor stress, a single meal) rather than a sign of a developing problem.",
+    fix:"No urgent action needed. Your lab's own suggestion to retest in 4 months is the right move — treat this as Pareto Intervention #4 in Chapter 12.",
+  })
+],
+
+micro: [
+  m({title:"Vitamin D — The Sunshine Hormone", kicker:"25-Hydroxy Vitamin D", status:"optimal",
+    subs:[{label:"Vitamin D (25-OH)", value:41.72, unit:"ng/ml", refLow:30, refHigh:100, scaleMin:0, scaleMax:120, status:"optimal"}],
+    intro:"Despite its name, Vitamin D functions more like a hormone — synthesised in your skin from cholesterol when exposed to UVB sunlight, then activated by your liver and kidneys. It governs calcium absorption, bone density, immune regulation, and muscle function.",
+    physiology:"Deficiency (below 20 ng/ml) is linked to weaker bones, higher infection susceptibility, and muscle weakness; the sufficiency range (30–100) is where calcium absorption, immune function, and neuromuscular performance are all well supported.",
+    decode:"At 41.72 ng/ml, you're solidly in the sufficient range — evidence of good sun exposure or supplementation, and a likely contributor to your normal calcium reading in Chapter 8.",
+  }),
+  m({title:"Vitamin B12 — The Nerve &amp; Blood Cell Cofactor", kicker:"Vitamin B12 (Cyanocobalamin)", status:"optimal",
+    subs:[{label:"Vitamin B12", value:529, unit:"pg/ml", refLow:222, refHigh:1439, scaleMin:100, scaleMax:1500, status:"optimal"}],
+    intro:"B12 is essential for building healthy red blood cells and maintaining the protective sheath around your nerves. It's found almost exclusively in animal products, which is why deficiency is common among strict vegetarians and vegans.",
+    physiology:"Deficiency can cause a distinct type of anaemia (macrocytic — cells too large, the opposite pattern of the microcytic story in Chapter 4) alongside nerve symptoms like tingling, numbness, and balance issues, since B12 is structurally required for nerve myelin maintenance.",
+    decode:"At 529 pg/ml, you're comfortably mid-range — no evidence of deficiency, and one less variable to consider when interpreting your red cell size pattern in Chapter 4.",
+  }),
+  m({title:"Iron &amp; Ferritin — The Paradox That Solves the Mystery", kicker:"Serum Iron · Ferritin", status:"concern", flagged:true,
+    subs:[
+      {label:"Serum Iron", value:67.0, unit:"µg/dl", refLow:70, refHigh:180, scaleMin:20, scaleMax:220, status:"concern"},
+      {label:"Ferritin", value:40.4, unit:"ng/ml", refLow:23.9, refHigh:336.2, scaleMin:10, scaleMax:200, status:"watch"}
+    ],
+    intro:"Serum iron measures iron actively circulating in your blood right now; ferritin measures your iron storage tank — the reserves banked away in your liver, spleen, and bone marrow. Doctors read them together because iron levels fluctuate hour to hour, while ferritin reflects the bigger picture.",
+    physiology:"In classic iron-deficiency anaemia, both numbers fall together — low circulating iron and low, depleted stores. Here, your serum iron is mildly low (67, just under the 70 floor) but your ferritin is comfortably within range (40.4) — a discordant pattern. That mismatch is actually a clue, not a contradiction: it fits a body with a possible thalassemia trait (Chapter 4), where cells are smaller and need marginally less iron per cell, so total-body iron demand runs a little lower even as a single-timepoint serum reading dips slightly.",
+    decode:"Taken alone, low serum iron might suggest starting iron supplements. Taken alongside your Chapter 4 findings and a normal ferritin, the far more likely explanation is a mild, single-draw fluctuation layered on top of a constitutional cell-size trait — not a true iron deficiency requiring supplementation.",
+    fix:"Hold off on iron supplements until the confirmatory HPLC/electrophoresis test in Chapter 12 clarifies the picture — supplementing iron unnecessarily, especially in a thalassemia trait carrier, offers no benefit and a small long-term risk of iron overload.",
+  })
+]
+
+};
+
+// ======================================================================
+// RENDER ENGINE
+// ======================================================================
+function statusLabel(s){ return s==='optimal' ? 'Optimal' : (s==='watch' ? 'Watch' : 'Concern'); }
+function statusClass(s){ return 'status-'+s; }
+function markerClass(s){ return 'marker-'+s; }
+
+function buildRangeBar(sub){
+  const span = sub.scaleMax - sub.scaleMin;
+  const lowPct = Math.max(0,((sub.refLow - sub.scaleMin)/span)*100);
+  const highPct = Math.min(100,((sub.refHigh - sub.scaleMin)/span)*100);
+  let valPct = ((sub.value - sub.scaleMin)/span)*100;
+  valPct = Math.max(1.5, Math.min(98.5, valPct));
+  return `<div class="sub-metric">
+    <div class="row1">
+      <span class="label">${sub.label}</span>
+      <span class="value">${sub.value}<span class="unit">${sub.unit}</span></span>
+    </div>
+    <div class="range-bar" data-valpct="${valPct}">
+      <div class="zone zone-normal" style="left:${lowPct}%;width:${Math.max(0,highPct-lowPct)}%;"></div>
+      <div class="marker ${markerClass(sub.status)}" style="left:${valPct}%;"></div>
+    </div>
+    <div class="ref">Reference: ${sub.refLow} – ${sub.refHigh} ${sub.unit}</div>
+  </div>`;
+}
+
+function buildCard(card, idx, cat){
+  const subsHtml = card.subs.map(buildRangeBar).join('');
+  const factHtml = card.fact ? `<div class="mini-fact"><b>Did you know —</b> ${card.fact}</div>` : '';
+  const fixHtml = card.fix ? `<div class="fix-box"><b>What to do about it</b><p>${card.fix}</p></div>` : '';
+  const cardId = `card-${cat}-${idx}`;
+  return `<div class="mcard full-span" data-status="${card.status}" id="${cardId}">
+    <div class="mcard-head">
+      <div>
+        <h4>${card.title}</h4>
+        <div class="mcard-kicker">${card.kicker}</div>
+      </div>
+      <span class="status-pill ${statusClass(card.status)}">${statusLabel(card.status)}</span>
+    </div>
+    ${subsHtml}
+    <div class="mcard-body">
+      <p>${card.intro}</p>
+      ${fixHtml}
+      <button class="accordion-toggle" onclick="toggleCard('${cardId}')"><span class="plus">+</span> Explore the biology in depth</button>
+      <div class="accordion-content">
+        <div class="accordion-inner">
+          <h5>The Deep Biology</h5>
+          <p>${card.physiology}</p>
+          <h5>Your Number, Decoded</h5>
+          <p>${card.decode}</p>
+        </div>
+      </div>
+      ${factHtml}
+    </div>
+  </div>`;
+}
+
+function toggleCard(id){
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+}
+window.toggleCard = toggleCard;
+
+function renderCategory(cat){
+  const container = document.querySelector(`[data-render="${cat}"]`);
+  if(!container) return;
+  const cards = METRICS[cat] || [];
+  container.innerHTML = cards.map((c,i)=>buildCard(c,i,cat)).join('');
+}
+
+['metabolic','blood','lipid','kidney','liver','mineral','thyroid','immune','micro'].forEach(renderCategory);
+
+// animate range bars once visible
+function armRangeBars(root){
+  root.querySelectorAll('.range-bar').forEach(bar=>{
+    bar.classList.add('animated');
+  });
+}
+
+// ======================================================================
+// SUPPORT TABLES
+// ======================================================================
+document.getElementById('bloodSupportTable').innerHTML = `
+  <tr><td>Hematocrit (PCV)</td><td class="num">47.6 %</td><td>40.0 – 50.0</td><td>Optimal, upper-normal</td></tr>
+  <tr><td>MCHC</td><td class="num">32.8 g/dL</td><td>31.5 – 34.5</td><td>Optimal</td></tr>
+  <tr><td>RDW-CV</td><td class="num">13.8 %</td><td>11.6 – 14.0</td><td>Upper edge of normal — cell-size variability worth watching alongside Ch. 4</td></tr>
+  <tr><td>RDW-SD</td><td class="num">37.60 fL</td><td>39.0 – 46.0</td><td>Mildly low — consistent with uniformly small cells, fits the trait pattern</td></tr>
+  <tr><td>Platelet Count</td><td class="num">211 ×10³/µl</td><td>150 – 410</td><td>Optimal</td></tr>
+  <tr><td>MPV</td><td class="num">8.2 fL</td><td>7 – 9</td><td>Optimal</td></tr>
+`;
+
+document.getElementById('lipidSupportTable').innerHTML = `
+  <tr><td>Total Chol / HDL Ratio</td><td class="num">3.78</td><td>3.30 – 4.40 (optimal)</td><td>Favourable</td></tr>
+  <tr><td>LDL / HDL Ratio</td><td class="num">2.48</td><td>0.5 – 3.0 (low risk)</td><td>Favourable</td></tr>
+  <tr><td>HDL / LDL Ratio</td><td class="num">0.40</td><td>0.5 – 3.0 desirable band*</td><td>Acceptable</td></tr>
+  <tr><td>Non-HDL Cholesterol</td><td class="num">155.6 mg/dl</td><td>&lt; 160</td><td>Passes, but close to ceiling</td></tr>
+  <tr><td>Apolipoprotein A1</td><td class="num">127.8 mg/dl</td><td>105 – 175</td><td>Optimal</td></tr>
+  <tr><td>Apolipoprotein B</td><td class="num">94.8 mg/dl</td><td>60 – 140</td><td>Optimal</td></tr>
+  <tr><td>Apo B / Apo A1 Ratio</td><td class="num">0.74</td><td>&lt; 0.99 (low risk, male)</td><td>Low cardiovascular risk — the single best predictor in this table</td></tr>
+`;
+
+document.getElementById('electrolyteTable').innerHTML = `
+  <tr><td>Sodium</td><td class="num">140 mmol/L</td><td>136 – 146</td><td>Optimal — fluid balance is sound</td></tr>
+  <tr><td>Potassium</td><td class="num">4.75 mmol/L</td><td>3.5 – 5.5</td><td>Optimal — nerve &amp; muscle signalling well-supported</td></tr>
+  <tr><td>Chloride</td><td class="num">105 mmol/L</td><td>101 – 109</td><td>Optimal</td></tr>
+`;
+
+document.getElementById('proteinTable').innerHTML = `
+  <tr><td>Albumin / Globulin Ratio</td><td class="num">1.46</td><td>1.2 – 2.0</td><td>Optimal</td></tr>
+  <tr><td>SGOT / SGPT Ratio</td><td class="num">1.29</td><td>0.7 – 1.4</td><td>Optimal — no alcohol-pattern skew</td></tr>
+`;
+
+document.getElementById('wbcTable').innerHTML = `
+  <tr><td>Neutrophils</td><td>55.5 %</td><td>4.16 ×10³/µL</td><td>First responders — bacteria &amp; acute injury</td></tr>
+  <tr><td>Lymphocytes</td><td>34.4 %</td><td>2.58 ×10³/µL</td><td>Antibody memory — viruses &amp; long-term immunity</td></tr>
+  <tr><td>Monocytes</td><td>7.7 %</td><td>0.58 ×10³/µL</td><td>Clean-up crew — clears debris &amp; chronic threats</td></tr>
+  <tr><td>Eosinophils</td><td>1.6 %</td><td>0.12 ×10³/µL</td><td>Parasite &amp; allergy response</td></tr>
+  <tr><td>Basophils</td><td>0.8 %</td><td>0.06 ×10³/µL</td><td>Allergic &amp; inflammatory signalling</td></tr>
+`;
+
+// ======================================================================
+// FILTER LOGIC (per-chapter sticky pills)
+// ======================================================================
+document.querySelectorAll('[data-filtergroup]').forEach(group=>{
+  const section = group.closest('.deep-dive');
+  group.querySelectorAll('.filter-pill').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      group.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      section.querySelectorAll('.mcard').forEach(card=>{
+        const status = card.dataset.status;
+        let show = true;
+        if(f==='concern') show = (status==='concern' || status==='watch');
+        if(f==='optimal') show = (status==='optimal');
+        card.style.display = show ? '' : 'none';
+      });
+    });
+  });
+});
+
+// demo pills in chapter 2 (cosmetic / informational, scroll to first deep dive on click)
+document.querySelectorAll('[data-demo]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('[data-demo]').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('ch-metabolic').scrollIntoView({behavior:'smooth'});
+  });
+});
+
+// ======================================================================
+// ROADMAP TABS
+// ======================================================================
+document.querySelectorAll('.rtab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.rpanel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-'+tab.dataset.panel).classList.add('active');
+  });
+});
+
+// ======================================================================
+// SIDE NAV DOTS
+// ======================================================================
+const chapters = [
+  {id:'hero', label:'Prologue'},
+  {id:'ch-story', label:'Ch.01 The View'},
+  {id:'ch-vitals', label:'Ch.02 Vitals'},
+  {id:'ch-metabolic', label:'Ch.03 Metabolic'},
+  {id:'ch-blood', label:'Ch.04 Blood'},
+  {id:'ch-lipid', label:'Ch.05 Lipids'},
+  {id:'ch-kidney', label:'Ch.06 Kidneys'},
+  {id:'ch-liver', label:'Ch.07 Liver'},
+  {id:'ch-mineral', label:'Ch.08 Minerals'},
+  {id:'ch-thyroid', label:'Ch.09 Thyroid'},
+  {id:'ch-immune', label:'Ch.10 Immune'},
+  {id:'ch-micro', label:'Ch.11 Micronutrients'},
+  {id:'ch-pareto', label:'Ch.12 Pareto Plan'},
+  {id:'ch-roadmap', label:'Ch.13 Roadmap'},
+  {id:'ch-epilogue', label:'Epilogue'}
+];
+const sideNav = document.getElementById('sideNav');
+chapters.forEach(ch=>{
+  const btn = document.createElement('button');
+  btn.dataset.label = ch.label;
+  btn.dataset.target = ch.id;
+  btn.addEventListener('click', ()=>document.getElementById(ch.id).scrollIntoView({behavior:'smooth'}));
+  sideNav.appendChild(btn);
+});
+const navButtons = Array.from(sideNav.children);
+
+// ======================================================================
+// SCROLL: progress bar, nav highlight, reveal animations, hero score
+// ======================================================================
+function onScroll(){
+  const docH = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docH > 0 ? (window.scrollY/docH)*100 : 0;
+  document.getElementById('progressBar').style.width = pct+'%';
+
+  let currentId = chapters[0].id;
+  chapters.forEach(ch=>{
+    const el = document.getElementById(ch.id);
+    if(el && el.getBoundingClientRect().top <= window.innerHeight*0.45) currentId = ch.id;
+  });
+  navButtons.forEach(b=>b.classList.toggle('active', b.dataset.target===currentId));
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('in');
+      if(entry.target.querySelectorAll) armRangeBars(entry.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+// observe dynamically-rendered cards too (they lack .reveal but should animate bars on view)
+const barObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.querySelectorAll('.range-bar').forEach(b=>b.classList.add('animated'));
+      barObserver.unobserve(entry.target);
+    }
+  });
+},{threshold:0.15});
+document.querySelectorAll('.mcard').forEach(c=>barObserver.observe(c));
+
+// hero score ring + counter
+window.addEventListener('load', ()=>{
+  const target = 83;
+  const circumference = 2*Math.PI*80;
+  const fill = document.getElementById('scoreFill');
+  const offset = circumference - (target/100)*circumference;
+  requestAnimationFrame(()=>{ fill.style.strokeDashoffset = offset; });
+  let cur = 0;
+  const numEl = document.getElementById('scoreNum');
+  const step = ()=>{
+    cur += 2;
+    if(cur >= target){ numEl.textContent = target; return; }
+    numEl.textContent = cur;
+    requestAnimationFrame(step);
+  };
+  setTimeout(step, 300);
+});
+</script>
+</body>
+</html>
